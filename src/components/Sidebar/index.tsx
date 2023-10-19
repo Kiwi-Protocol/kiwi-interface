@@ -17,8 +17,20 @@ export function Sidebar() {
           margin: "0",
           paddingTop: "20px",
         }}
-      >
-        <Menu.Item
+        items={[
+          {
+            key: "1",
+            label: "Dashboard",
+            onClick: () => setNavState("dashboard"),
+          },
+          {
+            key: "2",
+            label: "Login",
+            onClick: () => setNavState("login"),
+          },
+        ]}
+      />
+      {/* <Menu.Item
           className={styles.brandName}
           onClick={() => setNavState("dashboard")}
         >
@@ -35,8 +47,7 @@ export function Sidebar() {
           onClick={() => setNavState("login")}
         >
           <a>Login</a>
-        </Menu.Item>
-      </Menu>
+        </Menu.Item> */}
     </div>
   );
 }

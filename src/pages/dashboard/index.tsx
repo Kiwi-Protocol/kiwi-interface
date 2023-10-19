@@ -11,17 +11,6 @@ import { useNavigationStore } from "@/states/navState.state";
 export default function Dashboard() {
   const navState = useNavigationStore((state: any) => state.navState);
 
-  const handleNavigation = (component: string) => {
-    switch (navState) {
-      case "dashboard":
-        return <Dashboard />;
-      case "login":
-        return <Dashboard />;
-      default:
-        return <Dashboard />;
-    }
-  };
-
   return (
     <>
       <Head>
@@ -32,7 +21,7 @@ export default function Dashboard() {
       </Head>
       <div className={styles.container}>
         <Sidebar />
-        {handleNavigation(navState)}
+
         <ConnectWallet />
       </div>
     </>
