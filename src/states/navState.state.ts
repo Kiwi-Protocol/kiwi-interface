@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export const useNavigationStore = create((set) => ({
-  navState: "",
+  navState: "mints",
   setNavState: async (navState: any) => {
     set({ navState });
   },

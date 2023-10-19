@@ -1,0 +1,45 @@
+.mintsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0px;
+}
+
+.mintFlexbox {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 70vw;
+  height: 82vh;
+  overflow-y: scroll;
+}
+
+.updateButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #000000;
+  outline: none;
+  cursor: pointer;
+}
+
+.mintContainer {
+  margin-right: 50px;
+  margin-bottom: 20px;
+}

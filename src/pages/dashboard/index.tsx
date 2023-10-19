@@ -7,9 +7,22 @@ import styles from "./index.module.css";
 import { Sidebar } from "@/components/Sidebar";
 import { Content } from "antd/es/layout/layout";
 import { useNavigationStore } from "@/states/navState.state";
+import Mints from "@/components/Mints";
+import Messages from "@/components/Messages";
 
 export default function Dashboard() {
   const navState = useNavigationStore((state: any) => state.navState);
+
+  const handleNavigation = (component: string) => {
+    switch (component) {
+      case "mints":
+        return <Mints />;
+      case "messages":
+        return <Messages />;
+      default:
+        return <h1>Page not found!</h1>;
+    }
+  };
 
   return (
     <>
@@ -21,7 +34,7 @@ export default function Dashboard() {
       </Head>
       <div className={styles.container}>
         <Sidebar />
-
+        <div className={styles.navComponent}>{handleNavigation(navState)}</div>
         <ConnectWallet />
       </div>
     </>

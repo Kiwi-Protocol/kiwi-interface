@@ -31,7 +31,12 @@ export default function App({ Component, pageProps }: AppProps) {
             colorPrimary: "#2B2D42",
             colorBgLayout: "#FFFF",
           },
-          components: {},
+          components: {
+            Button: {
+              colorPrimary: "#2B2D42",
+              colorBgContainer: "#2B2D42",
+            },
+          },
         }}
       >
         <Component {...pageProps} />

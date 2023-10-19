@@ -11,7 +11,7 @@ export function Sidebar() {
         mode="inline"
         style={{
           width: 200,
-          backgroundColor: "#ffe5ec",
+          backgroundColor: "#ffffff",
           height: "100vh",
           border: "none",
           margin: "0",
@@ -20,13 +20,33 @@ export function Sidebar() {
         items={[
           {
             key: "1",
-            label: "Dashboard",
-            onClick: () => setNavState("dashboard"),
+            label: "KIWI.",
+            onClick: () => {},
+            className: styles.brandName,
           },
           {
             key: "2",
-            label: "Login",
-            onClick: () => setNavState("login"),
+            label: "Mints",
+            onClick: () => setNavState("mints"),
+            className: styles.menuItem,
+          },
+          {
+            key: "3",
+            label: "Messages",
+            onClick: () => setNavState("messages"),
+            className: styles.menuItem,
+          },
+          {
+            key: "4",
+            label: "Profile",
+            onClick: () => setNavState("profile"),
+            className: styles.menuItem,
+          },
+          {
+            key: "5",
+            label: "Mint Avatar",
+            onClick: () => setNavState("profile"),
+            className: styles.menuItemOutlined,
           },
         ]}
       />
