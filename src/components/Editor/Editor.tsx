@@ -1,11 +1,12 @@
-import { Card, Flex, Tabs } from "antd";
+import { Button, Card, Flex, Tabs } from "antd";
 import { useState } from "react";
 
 type Props = {
     assetPack: any;
+    onSave?: (selected: any) => void;
 };
 
-function Editor({ assetPack }: Props) {
+function Editor({ assetPack, onSave }: Props) {
     const types = Object.keys(assetPack).length;
 
     if (!types || types === 0)
@@ -26,7 +27,7 @@ function Editor({ assetPack }: Props) {
             key,
             label: key,
             children: (
-                <Flex gap={5} className="flex flex-wrap gap-3">
+                <Flex gap={5}>
                     {value.map((val: any) => (
                         <Card
                             key={val.id}
@@ -47,11 +48,7 @@ function Editor({ assetPack }: Props) {
     );
 
     return (
-        <div
-            style={{
-                margin: "3rem",
-            }}
-        >
+        <div>
             {/* Preview. To be in order */}
             <Flex vertical>
                 {Object.keys(assetPack).map((type) => {
@@ -68,7 +65,19 @@ function Editor({ assetPack }: Props) {
                 })}
             </Flex>
 
-            <Tabs items={tabItems} />
+            <Tabs
+                items={tabItems}
+                tabBarExtraContent={{
+                    right: (
+                        <Button
+                            type="primary"
+                            onClick={() => onSave?.(selected)}
+                        >
+                            Save
+                        </Button>
+                    ),
+                }}
+            />
         </div>
     );
 }

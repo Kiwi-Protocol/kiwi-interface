@@ -1,6 +1,11 @@
 import Editor from "@/components/Editor/Editor";
+import { Flex } from "antd";
+import { useRouter } from "next/router";
 
-function Test() {
+function EditNFT() {
+    const router = useRouter();
+
+    // TODO: Fetch available Asset Pack
     const assetPack = {
         hair: [
             {
@@ -46,11 +51,27 @@ function Test() {
     };
 
     return (
+        // TODO: Add this in main layout with sidebar
         <>
-            <h1>Editor Test</h1>
-            <Editor assetPack={assetPack} onSave={() => {}} />
+            <h1
+                style={{
+                    textAlign: "center",
+                    marginTop: "3rem",
+                    fontFamily: "fantasy",
+                }}
+            >
+                Kiwi Avatar #{router.query.id}
+            </h1>
+
+            <Flex justify="center" align="center" style={{ marginTop: "2rem" }}>
+                <img src="/mock_pixel.jpeg" alt="mint" width="175" />
+            </Flex>
+
+            <div style={{ margin: "5rem" }}>
+                <Editor assetPack={assetPack} />
+            </div>
         </>
     );
 }
 
-export default Test;
+export default EditNFT;
