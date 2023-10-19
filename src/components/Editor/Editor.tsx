@@ -1,4 +1,4 @@
-import { Tabs } from "antd";
+import { Card, Flex, Tabs } from "antd";
 import { useState } from "react";
 
 type Props = {
@@ -26,44 +26,51 @@ function Editor({ assetPack }: Props) {
             key,
             label: key,
             children: (
-                <div className="flex flex-wrap gap-3">
+                <Flex gap={5} className="flex flex-wrap gap-3">
                     {value.map((val: any) => (
-                        <div
+                        <Card
                             key={val.id}
                             className={
                                 "w-20 h-20 bg-pink-100 hover:bg-pink-200 focus:bg-pink-300 rounded-xl grid place-items-center cursor-pointer transition " +
                                 (isActive(key, val) &&
                                     "border-2 border-pink-500")
                             }
-                            title={val.name}
                             onClick={() => selectItem(key, val)}
+                            hoverable={true}
+                            style={{
+                                border: isActive(key, val) ? "2px pink solid" : "",
+                            }}
                         >
-                            <img
-                                src={val.image}
-                                alt={val.name}
-                                className="w-10 h-10"
-                            />
-                        </div>
+                            <img src={val.image} alt={val.name} width={50} />
+                        </Card>
                     ))}
-                </div>
+                </Flex>
             ),
         })
     );
 
     return (
-        <div className="m-10 p-5 bg-white text-black rounded-lg">
+        <div
+            style={{
+                margin: "3rem",
+            }}
+        >
             {/* Preview. To be in order */}
-            <div className="pt-7">
+            <Flex vertical className="pt-7 flex flex-col">
                 {Object.keys(assetPack).map((type) => {
                     if (selected[type])
                         return (
                             <img
                                 src={selected[type].image}
                                 className="w-10 h-10 -mt-8"
+                                width={50}
+                                style={{
+                                    marginTop: "-40px",
+                                }}
                             />
                         );
                 })}
-            </div>
+            </Flex>
 
             <Tabs items={tabItems} />
         </div>
