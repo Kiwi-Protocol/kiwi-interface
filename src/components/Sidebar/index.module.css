@@ -1,0 +1,34 @@
+.container {
+  min-width: 100px;
+  height: 100vh;
+  border: none;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  outline: none;
+  border: none;
+  margin: none;
+  background-color: "#ffe5ec";
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 40px;
+  background-color: "#ffe5ec";
+}
+
+.menuItem:hover {
+  cursor: pointer;
+}
+
+.brandName {
+  font-weight: 600;
+  font-size: 2rem;
+  margin-top: 30px;
+  margin-bottom: 50px !important;
+}
