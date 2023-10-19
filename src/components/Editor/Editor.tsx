@@ -30,15 +30,12 @@ function Editor({ assetPack }: Props) {
                     {value.map((val: any) => (
                         <Card
                             key={val.id}
-                            className={
-                                "w-20 h-20 bg-pink-100 hover:bg-pink-200 focus:bg-pink-300 rounded-xl grid place-items-center cursor-pointer transition " +
-                                (isActive(key, val) &&
-                                    "border-2 border-pink-500")
-                            }
                             onClick={() => selectItem(key, val)}
                             hoverable={true}
                             style={{
-                                border: isActive(key, val) ? "2px pink solid" : "",
+                                outline: isActive(key, val)
+                                    ? "2px pink solid"
+                                    : "",
                             }}
                         >
                             <img src={val.image} alt={val.name} width={50} />
@@ -56,13 +53,12 @@ function Editor({ assetPack }: Props) {
             }}
         >
             {/* Preview. To be in order */}
-            <Flex vertical className="pt-7 flex flex-col">
+            <Flex vertical>
                 {Object.keys(assetPack).map((type) => {
                     if (selected[type])
                         return (
                             <img
                                 src={selected[type].image}
-                                className="w-10 h-10 -mt-8"
                                 width={50}
                                 style={{
                                     marginTop: "-40px",
