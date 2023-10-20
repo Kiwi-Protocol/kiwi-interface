@@ -18,13 +18,13 @@ import {
 import { Web3Modal } from "@web3modal/react";
 
 export default function App({ Component, pageProps }: AppProps) {
-    const chains = [sepolia, goerli, arbitrum, mainnet, polygon, polygonMumbai];
+    const chains = [polygonMumbai];
     const projectId = "dd0d6065610301cf7f8d51557cbbffc3";
     const { publicClient } = configureChains(chains, [
         w3mProvider({ projectId }),
     ]);
     const wagmiConfig = createConfig({
-        // autoConnect: true,
+        autoConnect: true,
         connectors: w3mConnectors({ projectId, chains }),
         publicClient,
     });

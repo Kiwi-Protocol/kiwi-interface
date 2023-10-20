@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Button, Layout } from "antd";
@@ -12,11 +12,27 @@ import Messages from "@/components/Messages";
 import Editor from "@/components/Editor";
 import Profile from "@/components/Profile";
 import { useWalletClient } from "wagmi";
+import { useWalletStore } from "@/states/walletState.state";
 
 export default function Dashboard() {
     const navState = useNavigationStore((state: any) => state.navState);
 
     const { data: walletClient } = useWalletClient();
+
+    const setWalletAddress = useWalletStore(
+        (state: any) => state.setWalletAddress
+    );
+
+    useEffect(() => {
+        handleGetAddress();
+    }, [walletClient]);
+
+    const handleGetAddress = async () => {
+        if (walletClient) {
+            const [address] = await walletClient.getAddresses();
+            setWalletAddress(address);
+        }
+    };
 
     const assetPack = {
         hair: [
