@@ -5,3 +5,6 @@ export const NFT_API = "https://deep-index.moralis.io/api/v2.2";
 
 // export const FUJI_CHAIN_HEX = "0xa86a";
 export const CURRENT_CHAIN_HEX = "polygon";
+
+export const API_URL = "https://kiwiprotocol.onrender.com/api/1.0.0"
+

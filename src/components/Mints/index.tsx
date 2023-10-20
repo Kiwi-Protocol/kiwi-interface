@@ -30,14 +30,14 @@ export default function Mints() {
                     >
                         <div className={styles.mintImage}>
                             <img
-                                src="/mock_pixel.jpeg"
+                                src={item.metadata[0].image}
                                 alt="mint"
                                 width={"175px"}
                             />
                         </div>
                         <div className={styles.mintDetails}>
                             <h3>{item.symbol} #{item.token_id}</h3>
-                            <p>awesomename.kiwi</p>
+                            <p>{item.metadata[0].name}</p>
                         </div>
                     </Card>
                 ))}
