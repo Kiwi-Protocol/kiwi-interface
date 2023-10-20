@@ -57,6 +57,7 @@ function Editor({ assetPack, onSave }: Props) {
                 vertical
                 style={{
                     marginTop: "2rem",
+                    paddingLeft: "20px",
                 }}
             >
                 {Object.keys(assetPack).map((type) => {
@@ -75,9 +76,10 @@ function Editor({ assetPack, onSave }: Props) {
 
             <Tabs
                 style={{
-                    width: "100%",
+                    width: "90%",
                     height: "100%",
                     marginTop: "2rem",
+                    paddingLeft: "20px",
                 }}
                 items={tabItems}
                 tabBarExtraContent={{
