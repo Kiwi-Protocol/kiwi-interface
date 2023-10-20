@@ -3,6 +3,7 @@ import { EmbedSDK } from "@pushprotocol/uiembed";
 import { Button } from "antd";
 import { useWalletClient } from "wagmi";
 import { useWalletStore } from "@/states/walletState.state";
+import styles from "./index.module.css";
 
 export default function Messages() {
     const { data: walletClient } = useWalletClient();
@@ -46,9 +47,5 @@ export default function Messages() {
         };
     };
 
-    return (
-        <>
-            <button id="qwerty">trigger button</button>
-        </>
-    );
+    return <div className={styles.messagesContainer}></div>;
 }
