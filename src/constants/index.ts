@@ -7,4 +7,5 @@ export const NFT_API = "https://deep-index.moralis.io/api/v2.2";
 export const CURRENT_CHAIN_HEX = "polygon";
 
 export const API_URL = "https://kiwiprotocol.onrender.com/api/1.0.0"
+// export const API_URL = "http://localhost:3001/api/1.0.0"
 

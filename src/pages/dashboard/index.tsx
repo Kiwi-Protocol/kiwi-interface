@@ -68,6 +68,14 @@ export default function Dashboard() {
                 return <Profile />;
             case "mintAvatar":
                 return <Editor assetPack={assetPack} />;
+            case "updateAvatar":
+                return (
+                    <Editor
+                        assetPack={assetPack}
+                        buttonText="Update"
+                        isUpdate={true}
+                    />
+                );
             case "achievements":
                 return <Achievements />;
             default:
