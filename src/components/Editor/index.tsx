@@ -1,6 +1,11 @@
 import { Button, Card, Flex, Tabs } from "antd";
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./index.module.css";
+import { parse } from "path";
+import { createAvatar } from "@/services/avatars.service";
+import { message } from "antd";
+import { useWalletStore } from "@/states/walletState.state";
+
 // import Title from "antd/es/typography/Title";
 
 type Props = {
@@ -9,12 +14,13 @@ type Props = {
 };
 
 function Editor({ assetPack, onSave }: Props) {
-    const types = Object.keys(assetPack).length;
-
-    if (!types || types === 0)
-        return <>No Types to Customize in this Asset Pack</>;
-
     const [selected, setSelected] = useState<typeof assetPack | {}>({});
+    const nameRef = useRef<HTMLInputElement>(null);
+    const walletAddress = useWalletStore((state: any) => state.walletAddress);
+
+    useEffect(() => {
+        console.log(selected, "selected");
+    }, [selected]);
 
     function selectItem(type: string, item: any) {
         setSelected({ ...selected, [type]: item });
@@ -24,7 +30,40 @@ function Editor({ assetPack, onSave }: Props) {
         return selected[type] && selected[type].id === item.id;
     }
 
-    const tabItems = Object.entries(assetPack).map(
+    useEffect(() => {
+        console.log(assetPack, "asset pack from editor useeffect");
+        parseAssetPack();
+    }, []);
+
+    const [parsedAssetPack, setParsedAssetPack] = useState<any>({});
+
+    const parseAssetPack = useCallback(() => {
+        let localPack: any = {};
+        if (!assetPack) {
+            console.log("no asset pack");
+            return undefined;
+        }
+        assetPack.forEach((asset: any) => {
+            console.log(asset, "asset from editor parse asset pack");
+            localPack[asset._id] = [];
+            console.log(parsedAssetPack, "parsed asset pack");
+            asset.assets.map((innerAsset: any) => {
+                console.log(asset, "asset from eps 2");
+                localPack[asset._id].push({
+                    id: innerAsset._id,
+                    name: innerAsset.name,
+                    image_url: innerAsset.image_url,
+                });
+            });
+        });
+        setParsedAssetPack(localPack);
+    }, [assetPack]);
+
+    useEffect(() => {
+        console.log(parsedAssetPack, "parsed asset pack from editor useeffect");
+    }, [parsedAssetPack]);
+
+    const tabItems = Object.entries(parsedAssetPack).map(
         ([key, value]: [string, any]) => ({
             key,
             label: key,
@@ -41,7 +80,11 @@ function Editor({ assetPack, onSave }: Props) {
                                     : "",
                             }}
                         >
-                            <img src={val.image} alt={val.name} width={50} />
+                            <img
+                                src={val.image_url}
+                                alt={val.name}
+                                width={50}
+                            />
                         </Card>
                     ))}
                 </Flex>
@@ -49,30 +92,54 @@ function Editor({ assetPack, onSave }: Props) {
         })
     );
 
+    const handleCreateAvatar = async () => {
+        const paramsObj = {
+            name: nameRef.current?.value,
+            wallet_address: walletAddress,
+            characteristics: Object.keys(selected).map((type) => {
+                return {
+                    id: selected[type].id,
+                };
+            }),
+        };
+        console.log(paramsObj, "params obj");
+
+        const response = await createAvatar(paramsObj);
+        if (response.status === 200) {
+            console.log(response.data, "avatar created");
+            message.success("Avatar created");
+        } else {
+            message.error("Something went wrong");
+        }
+    };
+
     return (
         <div className={styles.editContainer}>
             {/* <Title>Mint Avatar</Title> */}
             {/* Preview. To be in order */}
-            <Flex
-                vertical
-                style={{
-                    marginTop: "2rem",
-                    paddingLeft: "20px",
-                }}
-            >
-                {Object.keys(assetPack).map((type) => {
+            <Flex className={styles.preview}>
+                {Object.keys(parsedAssetPack).map((type) => {
                     if (selected[type])
                         return (
                             <img
-                                src={selected[type].image}
+                                src={selected[type].image_url}
                                 width={50}
                                 style={{
                                     marginTop: "-40px",
+                                    marginBottom: "20px",
                                 }}
                             />
                         );
                 })}
             </Flex>
+
+            <input
+                type="text"
+                className={styles.nameInput}
+                placeholder="Name for the Avatar"
+                required
+                ref={nameRef}
+            />
 
             <Tabs
                 style={{
@@ -84,11 +151,8 @@ function Editor({ assetPack, onSave }: Props) {
                 items={tabItems}
                 tabBarExtraContent={{
                     right: (
-                        <Button
-                            type="primary"
-                            onClick={() => onSave?.(selected)}
-                        >
-                            Save
+                        <Button type="primary" onClick={handleCreateAvatar}>
+                            Mint
                         </Button>
                     ),
                 }}
