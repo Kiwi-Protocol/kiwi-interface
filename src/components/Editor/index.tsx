@@ -2,21 +2,27 @@ import { Button, Card, Flex, Tabs } from "antd";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./index.module.css";
 import { parse } from "path";
-import { createAvatar } from "@/services/avatars.service";
+import { createAvatar, updateAvatar } from "@/services/avatars.service";
 import { message } from "antd";
 import { useWalletStore } from "@/states/walletState.state";
+import { api } from "@/constants/axios";
+import { useRouter } from "next/router";
 
 // import Title from "antd/es/typography/Title";
 
 type Props = {
     assetPack: any;
+    buttonText?: string;
     onSave?: (selected: any) => void;
+    isUpdate?: boolean;
 };
 
-function Editor({ assetPack, onSave }: Props) {
+function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
     const [selected, setSelected] = useState<typeof assetPack | {}>({});
     const nameRef = useRef<HTMLInputElement>(null);
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
+
+    const router = useRouter();
 
     useEffect(() => {
         console.log(selected, "selected");
@@ -92,6 +98,35 @@ function Editor({ assetPack, onSave }: Props) {
         })
     );
 
+    const handleUpdateAvatar = async () => {
+        if (!router.query.id) return;
+
+        // Fetch Metadata to get MongoDB id for passing
+        const { data: tokenData } = await api.get(
+            "/kiwiAvatars/tokenUri/" + router.query.id
+        );
+        const avatar_id = tokenData.data[0]._id;
+
+        const paramsObj = {
+            name: nameRef.current?.value,
+            wallet_address: walletAddress,
+            characteristics: Object.keys(selected).map((type) => {
+                return {
+                    id: selected[type].id,
+                };
+            }),
+        };
+        console.log(paramsObj, "params obj");
+
+        try {
+            const response = await updateAvatar(paramsObj, avatar_id);
+            message.success("Avatar Updated");
+        } catch (e) {
+            console.error(e);
+            message.error("Something went wrong");
+        }
+    };
+
     const handleCreateAvatar = async () => {
         const paramsObj = {
             name: nameRef.current?.value,
@@ -106,7 +141,7 @@ function Editor({ assetPack, onSave }: Props) {
 
         try {
             const response = await createAvatar(paramsObj);
-            message.success("Avatar created", response.data);
+            message.success("Avatar Created");
         } catch (e) {
             console.error(e);
             message.error("Something went wrong");
@@ -115,7 +150,6 @@ function Editor({ assetPack, onSave }: Props) {
 
     return (
         <div className={styles.editContainer}>
-            {/* <Title>Mint Avatar</Title> */}
             {/* Preview. To be in order */}
             <Flex className={styles.preview}>
                 {Object.keys(parsedAssetPack).map((type) => {
@@ -126,20 +160,21 @@ function Editor({ assetPack, onSave }: Props) {
                                 width={50}
                                 style={{
                                     marginTop: "-40px",
-                                    marginBottom: "20px",
                                 }}
                             />
                         );
                 })}
             </Flex>
 
-            <input
-                type="text"
-                className={styles.nameInput}
-                placeholder="Name for the Avatar"
-                required
-                ref={nameRef}
-            />
+            {!isUpdate && (
+                <input
+                    type="text"
+                    className={styles.nameInput}
+                    placeholder="Name for the Avatar"
+                    required
+                    ref={nameRef}
+                />
+            )}
 
             <Tabs
                 style={{
@@ -151,8 +186,15 @@ function Editor({ assetPack, onSave }: Props) {
                 items={tabItems}
                 tabBarExtraContent={{
                     right: (
-                        <Button type="primary" onClick={handleCreateAvatar}>
-                            Mint
+                        <Button
+                            type="primary"
+                            onClick={() =>
+                                isUpdate
+                                    ? handleUpdateAvatar()
+                                    : handleCreateAvatar()
+                            }
+                        >
+                            {buttonText || "Mint"}
                         </Button>
                     ),
                 }}
