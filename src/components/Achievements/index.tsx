@@ -57,6 +57,9 @@ export default function Achievements() {
             setCreatorId(response.data.data._id);
             setIsModalVisible(true);
             message.success("User created");
+            //clear all refs
+            nameRef.current!.value = "";
+            emailRef.current!.value = "";
         } else {
             console.log("user not created");
             message.error("Something went wrong");

@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
             <ConfigProvider
                 theme={{
                     token: {
-                        colorPrimary: "#2B2D42",
+                        colorPrimary: "#f14b96",
                         colorBgLayout: "#FFFF",
                     },
                     components: {
