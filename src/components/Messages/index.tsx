@@ -11,49 +11,43 @@ export default function Messages() {
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
 
     useEffect(() => {
-        handleEmbedPushChat();
-    }, [address]);
+        if (address) {
+            setTimeout(() => {
+                // 'your connected wallet address'
+                const result = EmbedSDK.init({
+                    headerText: "Hello DeFi", // optional
+                    targetID: "sdk-trigger-id", // mandatory
+                    appName: "consumerApp", // mandatory
+                    user: address, // mandatory
+                    chainId: 137, // mandatory
+                    viewOptions: {
+                        type: "sidebar", // optional [default: 'sidebar', 'modal']
+                        showUnreadIndicator: true, // optional
+                        unreadIndicatorColor: "#cc1919",
+                        unreadIndicatorPosition: "bottom-right",
+                    },
+                    theme: "light",
+                    onOpen: () => {
+                        console.log("-> client dApp onOpen callback");
+                    },
+                    onClose: () => {
+                        console.log("-> client dApp onClose callback");
+                    },
+                });
 
-    const handleEmbedPushChat = async () => {
-        console.log({ address, chainId });
-        if (address && chainId) {
-            console.log("Success", { address, chainId });
-            // 'your connected wallet address'
-
-            EmbedSDK.init({
-                // isInitialized: true, // optional
-                headerText: "Kiwi Chat", // optional
-                targetID: "qwerty", // mandatory
-                appName: "Kiwi Chat App", // mandatory
-                user: address, // mandatory
-                chainId: chainId, // mandatory
-                viewOptions: {
-                    type: "modal", // optional [default: 'sidebar', 'modal']
-                    showUnreadIndicator: true, // optional
-                    unreadIndicatorColor: "#cc1919",
-                    unreadIndicatorPosition: "bottom-right",
-                },
-                theme: "light",
-                onOpen: () => {
-                    console.log("-> client dApp onOpen callback");
-                },
-                onClose: () => {
-                    console.log("-> client dApp onClose callback");
-                },
-            });
-        } else {
-            console.log("no address");
+                console.log({ result });
+            }, 1000);
         }
 
         return () => {
             EmbedSDK.cleanup();
         };
-    };
+    }, []);
 
     return (
         <>
             <h1>Messages</h1>
-            <button id="qwerty">trigger button</button>
+            <button id="sdk-trigger-id">trigger button</button>
         </>
     );
 }
