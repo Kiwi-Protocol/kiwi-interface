@@ -19,7 +19,7 @@ function useNFTs() {
                 `/${address}/nft?chain=${FUJI_CHAIN_HEX}&format=decimal&media_items=false&token_addresses%5B0%5D=${NFT_ADDRESS}`
             );
 
-            setNfts(data);
+            setNfts(data.result);
         } catch (e) {
             console.error(e);
         }
