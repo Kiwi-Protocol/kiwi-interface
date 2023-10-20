@@ -16,6 +16,7 @@ import { useWalletStore } from "@/states/walletState.state";
 import Navbar from "@/components/Navbar";
 import { getAssets } from "@/services/assets.service";
 import { message } from "antd";
+import Achievements from "@/components/Achievements";
 
 export default function Dashboard() {
     const navState = useNavigationStore((state: any) => state.navState);
@@ -66,9 +67,9 @@ export default function Dashboard() {
             case "profile":
                 return <Profile />;
             case "mintAvatar":
-                console.log("mint avatar");
-
                 return <Editor assetPack={assetPack} />;
+            case "achievements":
+                return <Achievements />;
             default:
                 return <h1>Page not found!</h1>;
         }

@@ -16,6 +16,8 @@ export default function Navbar() {
                 return "Profile";
             case "mintAvatar":
                 return "Mint Avatar";
+            case "achievements":
+                return "Achievements";
             default:
                 return "KIWI.";
         }

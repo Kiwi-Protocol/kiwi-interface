@@ -10,7 +10,7 @@ export function Sidebar() {
             <Menu
                 mode="inline"
                 style={{
-                    width: 200,
+                    width: "200px",
                     backgroundColor: "#ffffff",
                     height: "100vh",
                     border: "none",
@@ -40,6 +40,12 @@ export function Sidebar() {
                         key: "4",
                         label: "Profile",
                         onClick: () => setNavState("profile"),
+                        className: styles.menuItem,
+                    },
+                    {
+                        key: "6",
+                        label: "Achievements",
+                        onClick: () => setNavState("achievements"),
                         className: styles.menuItem,
                     },
                     {

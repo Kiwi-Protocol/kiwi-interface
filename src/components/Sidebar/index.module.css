@@ -10,7 +10,7 @@
     outline: none;
     border: none;
     margin: none;
-    background-color: "#ffffff";
+    background-color: "#efefef";
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
 
     padding: 0 20px;
@@ -24,16 +24,24 @@
     width: 40px;
     background-color: "#ffffff";
     font-size: 1rem;
+    margin-bottom: 20px !important;
 }
 
 .menuItem:hover {
     cursor: pointer;
+    background-color: #f14b96 !important;
+}
+
+.menuItem:focus {
+    outline: none;
+    border: none;
+    background-color: #f14b96 !important;
 }
 
 .menuItem:active {
     outline: none;
     border: none;
-    background-color: #ffffff;
+    background-color: #ffffff !important;
 }
 
 .menuItemOutlined {
@@ -41,13 +49,13 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 175px !important;
-    height: 60px !important;
+    width: 190px !important;
+    height: 40px !important;
     /* height: 40px; */
     border-radius: 1px;
     /* background-color: #ffffff; */
-    background-color: pink;
-    border: 1px solid #000000;
+    background-color: #f14b96;
+
     font-size: 1rem;
     font-weight: 600;
     color: #000000;
