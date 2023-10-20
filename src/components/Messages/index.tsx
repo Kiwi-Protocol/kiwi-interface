@@ -26,8 +26,8 @@ export default function Messages() {
                 isInitialized: true, // optional
                 headerText: "Kiwi Chat", // optional
                 targetID: "qwerty", // mandatory
-                appName: "consumerApp", // mandatory
-                user: "0x7CC6E56d37eA31A31d0d59E41728bb034203C6DB", // mandatory
+                appName: "Kiwi Chat App", // mandatory
+                user: address, // mandatory
                 chainId: 137, // mandatory
                 viewOptions: {
                     type: "modal", // optional [default: 'sidebar', 'modal']
