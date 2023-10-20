@@ -44,7 +44,7 @@ export function Sidebar() {
                     },
                     {
                         key: "5",
-                        label: "Mint Avatar",
+                        label: "+ Mint Avatar",
                         onClick: () => setNavState("mintAvatar"),
                         className: styles.menuItemOutlined,
                     },

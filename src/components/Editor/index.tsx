@@ -1,6 +1,7 @@
 import { Button, Card, Flex, Tabs } from "antd";
 import { useState } from "react";
 import styles from "./index.module.css";
+// import Title from "antd/es/typography/Title";
 
 type Props = {
     assetPack: any;
@@ -51,6 +52,7 @@ function Editor({ assetPack, onSave }: Props) {
     return (
         <div className={styles.editContainer}>
             <h1>Mint Avatar</h1>
+            {/* <Title>Mint Avatar</Title> */}
             {/* Preview. To be in order */}
             <Flex
                 vertical

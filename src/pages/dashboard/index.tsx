@@ -11,7 +11,7 @@ import Mints from "@/components/Mints";
 import Messages from "@/components/Messages";
 import Editor from "@/components/Editor";
 import Profile from "@/components/Profile";
-import { useWalletClient } from "wagmi";
+import { useAccount, useWalletClient } from "wagmi";
 import { useWalletStore } from "@/states/walletState.state";
 
 export default function Dashboard() {

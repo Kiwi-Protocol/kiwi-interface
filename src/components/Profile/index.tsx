@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 
-import { Dropdown, MenuProps, Space, message } from "antd";
+import { Card, Dropdown, MenuProps, Space, message } from "antd";
 import { useWalletClient } from "wagmi";
 import { DownOutlined } from "@ant-design/icons";
+// import Title from "antd/es/typography/Title";
 
 export default function Profile() {
     const { data: walletClient } = useWalletClient();
@@ -46,8 +47,9 @@ export default function Profile() {
 
     return (
         <div className={styles.profileContainer}>
+            {/* <Title>Profile</Title> */}
             <h1>Profile</h1>
-            <div className={styles.profileFlexbox}>
+            {/* <div className={styles.profileFlexbox}>
                 <div className={styles.profileContainer}>
                     <div className={styles.profileImage}>
                         <img src="/mock_pixel.jpeg" alt="profile" />
@@ -76,7 +78,32 @@ export default function Profile() {
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> */}
+
+            <Card
+                title={
+                    <Dropdown
+                        menu={{
+                            onClick: onChangeProfile,
+                            items: items,
+                        }}
+                    >
+                        <a onClick={(e) => e.preventDefault()}>
+                            <Space
+                                style={{
+                                    cursor: "pointer",
+                                }}
+                            >
+                                jaymalave.kiwi
+                                <DownOutlined />
+                            </Space>
+                        </a>
+                    </Dropdown>
+                }
+                cover={<img src="/mock_pixel.jpeg" alt="profile" />}
+            >
+                content
+            </Card>
         </div>
     );
 }
