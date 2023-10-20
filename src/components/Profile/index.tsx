@@ -95,18 +95,17 @@ export default function Profile() {
                                 }}
                             >
                                 jaymalave.kiwi
+                                <CaretDownOutlined />
                             </Space>
-                            <CaretDownOutlined />
                         </a>
                     </Dropdown>
                 }
                 extra={"0x123..431"}
-                cover={<img src="/mock_pixel.jpeg" alt="profile" />}
                 style={{
-                    width: "50%",
+                    marginTop: "20px",
                 }}
             >
-                content
+                <img src="/mock_pixel.jpeg" alt="profile" />
             </Card>
         </div>
     );
