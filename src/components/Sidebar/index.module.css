@@ -27,7 +27,7 @@
     margin-bottom: 20px !important;
 }
 
-.menuItem:hover {
+/* .menuItem:hover {
     cursor: pointer;
     background-color: #f14b96 !important;
 }
@@ -36,7 +36,7 @@
     outline: none;
     border: none;
     background-color: #f14b96 !important;
-}
+} */
 
 .menuItem:active {
     outline: none;
