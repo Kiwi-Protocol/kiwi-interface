@@ -4,6 +4,7 @@ import { Button, Modal } from "antd";
 import { useWalletStore } from "@/states/walletState.state";
 import { createUser, getUser } from "@/services/users.service";
 import { message } from "antd";
+import { createAchievement } from "@/services/achievements.service";
 
 export default function Achievements() {
     const [userExists, setUserExists] = useState<boolean>(false);
@@ -17,6 +18,7 @@ export default function Achievements() {
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
     const [apiKey, setApiKey] = useState<string>("");
+    const [creatorId, setCreatorId] = useState<string>("");
 
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
 
@@ -25,6 +27,7 @@ export default function Achievements() {
         if (response.status === 200) {
             console.log(response.data.data, "user exists");
             if (response.data.data.length > 0) {
+                setCreatorId(response.data.data[0]._id);
                 setUserExists(true);
             } else {
                 setUserExists(false);
@@ -51,10 +54,33 @@ export default function Achievements() {
         if (response.status === 200) {
             console.log(response.data.data, "user created");
             setApiKey(response.data.data.api_key);
+            setCreatorId(response.data.data._id);
             setIsModalVisible(true);
             message.success("User created");
         } else {
             console.log("user not created");
+            message.error("Something went wrong");
+        }
+    };
+
+    const handleCreateAchievement = async () => {
+        const paramsObj = {
+            name: achievementNameRef.current?.value,
+            description: achievementDescriptionRef.current?.value,
+            image_url: "http://kiwiprotocol.xyz/kiwi.png",
+            experience: experienceRef.current?.value,
+            creator_id: creatorId,
+        };
+
+        console.log(paramsObj, "params obj for create acheivement");
+
+        const response = await createAchievement(paramsObj);
+
+        if (response.status === 200) {
+            console.log(response.data.data, "achievement created");
+            message.success("Achievement created");
+        } else {
+            console.log("achievement not created");
             message.error("Something went wrong");
         }
     };
@@ -77,12 +103,15 @@ export default function Achievements() {
                         ref={achievementDescriptionRef}
                     />
                     <input
-                        type="text"
+                        type="number"
                         placeholder="XPs"
                         className={styles.inputBox}
                         ref={experienceRef}
                     />
-                    <button className={styles.submitButton} onClick={() => {}}>
+                    <button
+                        className={styles.submitButton}
+                        onClick={handleCreateAchievement}
+                    >
                         Submit
                     </button>
                 </div>
