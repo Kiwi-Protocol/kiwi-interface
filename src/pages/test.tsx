@@ -1,4 +1,8 @@
 import Editor from "@/components/Editor";
+import { useAccount } from "wagmi";
+import { EmbedSDK } from "@pushprotocol/uiembed";
+import { useEffect } from "react";
+import ConnectWallet from "@/components/ConnectWallet";
 
 function Test() {
     const assetPack = {
@@ -45,9 +49,47 @@ function Test() {
         ],
     };
 
+    const { address } = useAccount();
+
+    useEffect(() => {
+        if (address) {
+            setTimeout(() => {
+                // 'your connected wallet address'
+                const result = EmbedSDK.init({
+                    headerText: "Hello DeFi", // optional
+                    targetID: "sdk-trigger-id", // mandatory
+                    appName: "consumerApp", // mandatory
+                    user: address, // mandatory
+                    chainId: 137, // mandatory
+                    viewOptions: {
+                        type: "sidebar", // optional [default: 'sidebar', 'modal']
+                        showUnreadIndicator: true, // optional
+                        unreadIndicatorColor: "#cc1919",
+                        unreadIndicatorPosition: "bottom-right",
+                    },
+                    theme: "light",
+                    onOpen: () => {
+                        console.log("-> client dApp onOpen callback");
+                    },
+                    onClose: () => {
+                        console.log("-> client dApp onClose callback");
+                    },
+                });
+
+                console.log({ result });
+            }, 1000);
+        }
+
+        return () => {
+            EmbedSDK.cleanup();
+        };
+    }, []);
+
     return (
         <>
             <h1>Editor Test</h1>
+            <ConnectWallet />
+            <button id="sdk-trigger-id">Message time again</button>
             <Editor assetPack={assetPack} onSave={() => {}} />
         </>
     );

@@ -18,7 +18,7 @@ import {
 import { Web3Modal } from "@web3modal/react";
 
 export default function App({ Component, pageProps }: AppProps) {
-    const chains = [polygonMumbai];
+    const chains = [polygon];
     const projectId = "dd0d6065610301cf7f8d51557cbbffc3";
     const { publicClient } = configureChains(chains, [
         w3mProvider({ projectId }),

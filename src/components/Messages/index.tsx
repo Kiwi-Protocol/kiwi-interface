@@ -1,19 +1,23 @@
 import React, { use, useEffect, useState } from "react";
 import { EmbedSDK } from "@pushprotocol/uiembed";
-import { Button } from "antd";
-import { useWalletClient } from "wagmi";
+import { useAccount, useChainId, useWalletClient } from "wagmi";
 import { useWalletStore } from "@/states/walletState.state";
 
 export default function Messages() {
+    const { address } = useAccount();
+    const chainId = useChainId();
+
     const { data: walletClient } = useWalletClient();
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
 
     useEffect(() => {
         handleEmbedPushChat();
-    }, []);
+    }, [address]);
 
     const handleEmbedPushChat = async () => {
-        if (walletClient) {
+        console.log({ address, chainId });
+        if (address && chainId) {
+            console.log("Success", { address, chainId });
             // 'your connected wallet address'
 
             EmbedSDK.init({
@@ -21,10 +25,10 @@ export default function Messages() {
                 headerText: "Kiwi Chat", // optional
                 targetID: "qwerty", // mandatory
                 appName: "Kiwi Chat App", // mandatory
-                user: walletAddress, // mandatory
-                chainId: 80001, // mandatory
+                user: address, // mandatory
+                chainId: chainId, // mandatory
                 viewOptions: {
-                    type: "sidebar", // optional [default: 'sidebar', 'modal']
+                    type: "modal", // optional [default: 'sidebar', 'modal']
                     showUnreadIndicator: true, // optional
                     unreadIndicatorColor: "#cc1919",
                     unreadIndicatorPosition: "bottom-right",
