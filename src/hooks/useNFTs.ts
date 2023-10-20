@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import { FUJI_CHAIN_HEX, NFT_ADDRESS } from "@/constants";
+import { CURRENT_CHAIN_HEX, NFT_ADDRESS } from "@/constants";
 import { moralis } from "@/constants/axios";
 
 function useNFTs() {
@@ -16,8 +16,10 @@ function useNFTs() {
 
         try {
             const { data } = await moralis.get(
-                `/${address}/nft?chain=${FUJI_CHAIN_HEX}&format=decimal&media_items=false&token_addresses%5B0%5D=${NFT_ADDRESS}`
+                `/${address}/nft?chain=${CURRENT_CHAIN_HEX}&format=decimal&media_items=false&token_addresses%5B0%5D=${NFT_ADDRESS}`
             );
+
+            console.log("Data from moralis nfts", data)
 
             setNfts(data.result);
         } catch (e) {

@@ -8,10 +8,12 @@ import useNFTs from "@/hooks/useNFTs";
 export default function Mints() {
     const setNavState = useNavigationStore((state: any) => state.setNavState);
 
+    const { nfts } = useNFTs();
+
     return (
         <div className={styles.mintsContainer}>
             <div className={styles.mintFlexbox}>
-                {[...Array(10)].map((_, i) => (
+                {nfts.map((item: any, i) => (
                     <Card
                         className={styles.mintContainer}
                         key={i}
@@ -34,7 +36,7 @@ export default function Mints() {
                             />
                         </div>
                         <div className={styles.mintDetails}>
-                            <h3>Kiwi #{i + 1}</h3>
+                            <h3>{item.symbol} #{item.token_id}</h3>
                             <p>awesomename.kiwi</p>
                         </div>
                     </Card>
