@@ -53,13 +53,7 @@ function Editor({ assetPack, onSave }: Props) {
         <div className={styles.editContainer}>
             {/* <Title>Mint Avatar</Title> */}
             {/* Preview. To be in order */}
-            <Flex
-                vertical
-                style={{
-                    marginTop: "2rem",
-                    paddingLeft: "20px",
-                }}
-            >
+            <Flex className={styles.preview}>
                 {Object.keys(assetPack).map((type) => {
                     if (selected[type])
                         return (
@@ -68,6 +62,7 @@ function Editor({ assetPack, onSave }: Props) {
                                 width={50}
                                 style={{
                                     marginTop: "-40px",
+                                    marginBottom: "20px",
                                 }}
                             />
                         );
