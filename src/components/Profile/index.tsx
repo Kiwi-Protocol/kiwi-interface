@@ -48,7 +48,7 @@ export default function Profile() {
     return (
         <div className={styles.profileContainer}>
             {/* <Title>Profile</Title> */}
-            <h1>Profile</h1>
+
             {/* <div className={styles.profileFlexbox}>
                 <div className={styles.profileContainer}>
                     <div className={styles.profileImage}>

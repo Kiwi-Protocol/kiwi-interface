@@ -13,6 +13,7 @@ import Editor from "@/components/Editor";
 import Profile from "@/components/Profile";
 import { useAccount, useWalletClient } from "wagmi";
 import { useWalletStore } from "@/states/walletState.state";
+import Navbar from "@/components/Navbar";
 
 export default function Dashboard() {
     const navState = useNavigationStore((state: any) => state.navState);
@@ -109,10 +110,10 @@ export default function Dashboard() {
             </Head>
             <div className={styles.container}>
                 <Sidebar />
-                <div className={styles.navComponent}>
+                <div className={styles.mainContainerVertical}>
+                    <Navbar />
                     {handleNavigation(navState)}
                 </div>
-                <ConnectWallet />
             </div>
         </>
     );

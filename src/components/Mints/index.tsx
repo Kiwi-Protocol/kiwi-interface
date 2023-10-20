@@ -9,7 +9,6 @@ export default function Mints() {
     return (
         <div className={styles.mintsContainer}>
             {/* <Title>My Mints</Title> */}
-            <h1>My Mints</h1>
             <div className={styles.mintFlexbox}>
                 {[...Array(10)].map((_, i) => (
                     <Card

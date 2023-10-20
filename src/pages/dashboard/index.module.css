@@ -1,16 +1,28 @@
 .container {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  height: 100vh;
-  width: 100vw;
-  padding: 0px;
-  margin: 0px;
-  background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100vw;
+    padding: 0px;
+    margin: 0px;
+    background-color: #ffffff;
 }
 
 .navComponent {
-  margin-top: 35px;
-  margin-left: 20px;
+    margin-top: 35px;
+    margin-left: 20px;
+}
+
+.mainContainerVertical {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100vh;
+    width: 100vw;
+    padding: 20px 70px;
+    margin: 0px;
+    background-color: #ffffff;
 }

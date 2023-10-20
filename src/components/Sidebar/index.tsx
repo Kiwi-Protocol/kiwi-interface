@@ -15,7 +15,7 @@ export function Sidebar() {
                     height: "100vh",
                     border: "none",
                     margin: "0",
-                    paddingTop: "20px",
+                    paddingTop: "37.5px",
                 }}
                 items={[
                     {
