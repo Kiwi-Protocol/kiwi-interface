@@ -2,7 +2,14 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ConfigProvider, theme } from "antd";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { arbitrum, mainnet, polygon, sepolia, goerli } from "wagmi/chains";
+import {
+    arbitrum,
+    mainnet,
+    polygon,
+    sepolia,
+    goerli,
+    polygonMumbai,
+} from "wagmi/chains";
 import {
     EthereumClient,
     w3mConnectors,
@@ -10,9 +17,8 @@ import {
 } from "@web3modal/ethereum";
 import { Web3Modal } from "@web3modal/react";
 
-
 export default function App({ Component, pageProps }: AppProps) {
-    const chains = [sepolia, goerli, arbitrum, mainnet, polygon];
+    const chains = [sepolia, goerli, arbitrum, mainnet, polygon, polygonMumbai];
     const projectId = "dd0d6065610301cf7f8d51557cbbffc3";
     const { publicClient } = configureChains(chains, [
         w3mProvider({ projectId }),
