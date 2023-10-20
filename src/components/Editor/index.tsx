@@ -1,5 +1,6 @@
 import { Button, Card, Flex, Tabs } from "antd";
 import { useState } from "react";
+import styles from "./index.module.css";
 
 type Props = {
     assetPack: any;
@@ -48,9 +49,15 @@ function Editor({ assetPack, onSave }: Props) {
     );
 
     return (
-        <div>
+        <div className={styles.editContainer}>
+            <h1>Mint Avatar</h1>
             {/* Preview. To be in order */}
-            <Flex vertical>
+            <Flex
+                vertical
+                style={{
+                    marginTop: "2rem",
+                }}
+            >
                 {Object.keys(assetPack).map((type) => {
                     if (selected[type])
                         return (
@@ -66,6 +73,11 @@ function Editor({ assetPack, onSave }: Props) {
             </Flex>
 
             <Tabs
+                style={{
+                    width: "100%",
+                    height: "100%",
+                    marginTop: "2rem",
+                }}
                 items={tabItems}
                 tabBarExtraContent={{
                     right: (

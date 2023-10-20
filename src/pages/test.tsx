@@ -1,4 +1,4 @@
-import Editor from "@/components/Editor/Editor";
+import Editor from "@/components/Editor";
 
 function Test() {
     const assetPack = {
