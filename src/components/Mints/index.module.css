@@ -16,7 +16,7 @@
     width: 80vw;
     height: 82vh;
     overflow-y: scroll;
-    margin-top: 30px;
+    /* margin-top: 30px; */
 }
 
 .updateButton {

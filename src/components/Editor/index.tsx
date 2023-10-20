@@ -104,11 +104,11 @@ function Editor({ assetPack, onSave }: Props) {
         };
         console.log(paramsObj, "params obj");
 
-        const response = await createAvatar(paramsObj);
-        if (response.status === 200) {
-            console.log(response.data, "avatar created");
-            message.success("Avatar created");
-        } else {
+        try {
+            const response = await createAvatar(paramsObj);
+            message.success("Avatar created", response.data);
+        } catch (e) {
+            console.error(e);
             message.error("Something went wrong");
         }
     };

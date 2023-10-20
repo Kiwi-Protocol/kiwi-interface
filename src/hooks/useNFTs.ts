@@ -7,6 +7,8 @@ function useNFTs() {
     const { address } = useAccount();
     const [nfts, setNfts] = useState([] as any[]);
 
+    const [loading, setLoading] = useState(false)
+
     useEffect(() => {
         getNFTs();
     }, [address]);
@@ -15,6 +17,7 @@ function useNFTs() {
         if (!address) return;
 
         try {
+            setLoading(true)
             const { data } = await moralis.get(
                 `/${address}/nft?chain=${CURRENT_CHAIN_HEX}&format=decimal&media_items=false&token_addresses%5B0%5D=${NFT_ADDRESS}`
             );
@@ -36,12 +39,14 @@ function useNFTs() {
             console.log({ localNfts });
 
             setNfts(localNfts);
+            setLoading(false)
         } catch (e) {
+            setLoading(false)
             console.error(e);
         }
     };
 
-    return { nfts, getNFTs };
+    return { nfts, loading, getNFTs };
 }
 
 export default useNFTs;
