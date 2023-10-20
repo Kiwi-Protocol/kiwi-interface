@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 
-import { Card, Dropdown, MenuProps, Space, message } from "antd";
+import { Card, Dropdown, Flex, MenuProps, Space, message } from "antd";
 import { useWalletClient } from "wagmi";
-import { DownOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
 // import Title from "antd/es/typography/Title";
 
 export default function Profile() {
@@ -95,12 +95,16 @@ export default function Profile() {
                                 }}
                             >
                                 jaymalave.kiwi
-                                <DownOutlined />
                             </Space>
+                            <CaretDownOutlined />
                         </a>
                     </Dropdown>
                 }
+                extra={"0x123..431"}
                 cover={<img src="/mock_pixel.jpeg" alt="profile" />}
+                style={{
+                    width: "50%",
+                }}
             >
                 content
             </Card>
