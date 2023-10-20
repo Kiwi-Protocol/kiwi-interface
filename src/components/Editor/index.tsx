@@ -101,25 +101,27 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
     const handleUpdateAvatar = async () => {
         if (!router.query.id) return;
 
-        // Fetch Metadata to get MongoDB id for passing
-        const { data: tokenData } = await api.get(
-            "/kiwiAvatars/tokenUri/" + router.query.id
-        );
-        const avatar_id = tokenData.data[0]._id;
-
-        const paramsObj = {
-            name: nameRef.current?.value,
-            wallet_address: walletAddress,
-            characteristics: Object.keys(selected).map((type) => {
-                return {
-                    id: selected[type].id,
-                };
-            }),
-        };
-        console.log(paramsObj, "params obj");
-
         try {
-            const response = await updateAvatar(paramsObj, avatar_id);
+            message.info("Updating...");
+
+            // Fetch Metadata to get MongoDB id for passing
+            const { data: tokenData } = await api.get(
+                "/kiwiAvatars/tokenUri/" + router.query.id
+            );
+            const avatar_id = tokenData.data[0]._id;
+
+            const paramsObj = {
+                name: nameRef.current?.value,
+                wallet_address: walletAddress,
+                characteristics: Object.keys(selected).map((type) => {
+                    return {
+                        id: selected[type].id,
+                    };
+                }),
+            };
+            console.log(paramsObj, "params obj");
+
+            await updateAvatar(paramsObj, avatar_id);
             message.success("Avatar Updated");
         } catch (e) {
             console.error(e);
@@ -140,7 +142,8 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
         console.log(paramsObj, "params obj");
 
         try {
-            const response = await createAvatar(paramsObj);
+            message.info("Creating...");
+            await createAvatar(paramsObj);
             message.success("Avatar Created");
         } catch (e) {
             console.error(e);
