@@ -2,13 +2,17 @@ import React from "react";
 import styles from "./index.module.css";
 import { Button, Card } from "antd";
 import { useNavigationStore } from "@/states/navState.state";
+import useNFTs from "@/hooks/useNFTs";
 // import Title from "antd/es/typography/Title";
 
 export default function Mints() {
     const setNavState = useNavigationStore((state: any) => state.setNavState);
+
+    const { nfts } = useNFTs();
+
     return (
         <div className={styles.mintsContainer}>
-            {/* <Title>My Mints</Title> */}
+            {JSON.stringify(nfts)}
             <div className={styles.mintFlexbox}>
                 {[...Array(10)].map((_, i) => (
                     <Card
