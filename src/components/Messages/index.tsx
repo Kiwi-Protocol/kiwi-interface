@@ -2,6 +2,8 @@ import React, { use, useEffect, useState } from "react";
 import { EmbedSDK } from "@pushprotocol/uiembed";
 import { useAccount, useChainId, useWalletClient } from "wagmi";
 import { useWalletStore } from "@/states/walletState.state";
+import { NotificationItem, chainNameType } from "@pushprotocol/uiweb";
+import * as PushAPI from "@pushprotocol/restapi";
 
 export default function Messages() {
     const { address } = useAccount();
@@ -9,6 +11,17 @@ export default function Messages() {
 
     const { data: walletClient } = useWalletClient();
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
+
+    useEffect(() => {
+        handleGetPushNotifications();
+    }, []);
+
+    const handleGetPushNotifications = async () => {
+        const notifications = await PushAPI.user.getFeeds({
+            user: `eip155:${chainId}:0x7CC6E56d37eA31A31d0d59E41728bb034203C6DB`,
+        });
+        console.log("notifications", notifications);
+    };
 
     useEffect(() => {
         if (address) {

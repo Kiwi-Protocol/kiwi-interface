@@ -1,3 +1,3 @@
 interface Window {
-  TradingView: any;
+    TradingView: any;
 }
