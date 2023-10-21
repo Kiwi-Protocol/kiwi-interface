@@ -21,6 +21,7 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
     const [selected, setSelected] = useState<typeof assetPack | {}>({});
     const nameRef = useRef<HTMLInputElement>(null);
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
+    const [loading, setLoading] = useState(false);
 
     const router = useRouter();
 
@@ -99,7 +100,11 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
     );
 
     const handleUpdateAvatar = async () => {
-        if (!router.query.id) return;
+        setLoading(true);
+        if (!router.query.id) {
+            setLoading(false);
+            return;
+        }
 
         try {
             message.info("Updating...");
@@ -123,13 +128,16 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
 
             await updateAvatar(paramsObj, avatar_id);
             message.success("Avatar Updated");
+            setLoading(false);
         } catch (e) {
             console.error(e);
             message.error("Something went wrong");
+            setLoading(false);
         }
     };
 
     const handleCreateAvatar = async () => {
+        setLoading(true);
         const paramsObj = {
             name: nameRef.current?.value,
             wallet_address: walletAddress,
@@ -145,9 +153,11 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
             message.info("Creating...");
             await createAvatar(paramsObj);
             message.success("Avatar Created");
+            setLoading(false);
         } catch (e) {
             console.error(e);
             message.error("Something went wrong");
+            setLoading(false);
         }
     };
 
@@ -190,6 +200,7 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
                 tabBarExtraContent={{
                     right: (
                         <Button
+                            loading={true}
                             type="primary"
                             onClick={() =>
                                 isUpdate

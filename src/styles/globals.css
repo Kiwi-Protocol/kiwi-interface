@@ -2,9 +2,3 @@
     margin: 0;
     padding: 0;
 }
-
-.ant-btn {
-    &::after {
-        all: unset;
-    }
-}
