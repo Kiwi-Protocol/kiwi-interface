@@ -19,7 +19,7 @@ export default function Achievements() {
 
     const nameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
-    const experienceRef = useRef<HTMLInputElement>(null);
+    const experienceRef = useRef<InputRef>(null);
     const achievementNameRef = useRef<InputRef>(null);
     const achievementDescriptionRef = useRef<InputRef>(null);
 
@@ -81,7 +81,7 @@ export default function Achievements() {
             name: achievementNameRef.current?.input?.value,
             description: achievementDescriptionRef.current?.input?.value,
             image_url: "http://kiwiprotocol.xyz/kiwi.png",
-            experience: experienceRef.current?.value,
+            experience: experienceRef.current?.input?.value,
             creator_id: creatorId,
         };
 
@@ -176,7 +176,7 @@ export default function Achievements() {
                                 },
                             ]}
                         >
-                            <Input type="number" />
+                            <Input type="number" ref={experienceRef} />
                         </Form.Item>
 
                         {/* <Form.Item wrapperCol={{ offset: 8, span: 16 }}> */}
