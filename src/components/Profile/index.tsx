@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 
-import { Card, Dropdown, Flex, MenuProps, Space, message } from "antd";
+import {
+    Card,
+    Dropdown,
+    Flex,
+    MenuProps,
+    Skeleton,
+    Space,
+    message,
+} from "antd";
 import { useWalletClient } from "wagmi";
 import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
 import useNFTs from "@/hooks/useNFTs";
@@ -68,7 +76,34 @@ export default function Profile() {
     return (
         <div className={styles.profileContainer}>
             {loading ? (
-                <p>Loading...</p>
+                <div
+                    className={styles.profileFlex}
+                    style={{
+                        margin: "20px",
+                    }}
+                >
+                    {[...Array(1)].map((item, i) => (
+                        <Card
+                            style={{
+                                display: "flex",
+                                justifyContent: "space-around",
+                                alignItems: "center",
+                                flexDirection: "column",
+                            }}
+                            key={i}
+                        >
+                            <Skeleton.Avatar
+                                style={{
+                                    width: "175px",
+                                    height: "175px",
+                                    borderRadius: "50%",
+                                }}
+                            />
+
+                            <Skeleton active />
+                        </Card>
+                    ))}
+                </div>
             ) : (
                 <div className={styles.profileFlex}>
                     <Card
@@ -156,9 +191,9 @@ export default function Profile() {
                                 )
                             )
                         ) : (
-                            <p>
+                            <div className={styles.emptyTextContainer}>
                                 No achievements earned yet, go play some games!
-                            </p>
+                            </div>
                         )}
                     </div>
                 </div>

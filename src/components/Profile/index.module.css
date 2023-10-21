@@ -20,3 +20,12 @@
     margin-left: 10px;
     width: 100%;
 }
+
+.emptyTextContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    min-width: 30vw;
+}

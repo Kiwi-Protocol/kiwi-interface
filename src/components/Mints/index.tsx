@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./index.module.css";
-import { Button, Card } from "antd";
+import { Button, Card, Skeleton } from "antd";
 import { useNavigationStore } from "@/states/navState.state";
 import useNFTs from "@/hooks/useNFTs";
 import { useRouter } from "next/router";
@@ -15,7 +15,23 @@ export default function Mints() {
 
     return (
         <div className={styles.mintsContainer}>
-            {loading && <p>Loading...</p>}
+            {loading && (
+                <div className={styles.mintFlexbox}>
+                    {[...Array(4)].map((item, i) => (
+                        <Card className={styles.mintContainer} key={i}>
+                            <Skeleton.Avatar
+                                style={{
+                                    width: "175px",
+                                    height: "175px",
+                                    borderRadius: "50%",
+                                }}
+                            />
+
+                            <Skeleton active />
+                        </Card>
+                    ))}
+                </div>
+            )}
             <div className={styles.mintFlexbox}>
                 {nfts.map((item: any, i) => (
                     <Card
