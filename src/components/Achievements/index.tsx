@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./index.module.css";
-import { Button, Card, Modal } from "antd";
+import { Button, Card, Checkbox, Form, Input, InputRef, Modal } from "antd";
 import { useWalletStore } from "@/states/walletState.state";
 import { createUser, getUser } from "@/services/users.service";
 import { message } from "antd";
@@ -8,14 +8,20 @@ import { createAchievement } from "@/services/achievements.service";
 import useUserAchivements from "@/hooks/useUserAchivements";
 import Meta from "antd/es/card/Meta";
 
+type FieldType = {
+    name?: string;
+    description?: string;
+    experience?: string;
+};
+
 export default function Achievements() {
     const [userExists, setUserExists] = useState<boolean>(false);
 
     const nameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const experienceRef = useRef<HTMLInputElement>(null);
-    const achievementNameRef = useRef<HTMLInputElement>(null);
-    const achievementDescriptionRef = useRef<HTMLInputElement>(null);
+    const achievementNameRef = useRef<InputRef>(null);
+    const achievementDescriptionRef = useRef<InputRef>(null);
 
     const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -72,8 +78,8 @@ export default function Achievements() {
 
     const handleCreateAchievement = async () => {
         const paramsObj = {
-            name: achievementNameRef.current?.value,
-            description: achievementDescriptionRef.current?.value,
+            name: achievementNameRef.current?.input?.value,
+            description: achievementDescriptionRef.current?.input?.value,
             image_url: "http://kiwiprotocol.xyz/kiwi.png",
             experience: experienceRef.current?.value,
             creator_id: creatorId,
@@ -96,8 +102,8 @@ export default function Achievements() {
     return (
         <div className={styles.achievementsContainer}>
             {userExists ? (
-                <div>
-                    <div className={styles.addForm}>
+                <div style={{ width: "100%" }}>
+                    {/* <div className={styles.addForm}>
                         <h3>Enter details of the achievements</h3>
                         <input
                             type="text"
@@ -123,7 +129,66 @@ export default function Achievements() {
                         >
                             Submit
                         </button>
-                    </div>
+                    </div> */}
+
+                    <Form
+                        name="basic"
+                        // labelCol={{ span: 3 }}
+                        // wrapperCol={{ span: 16 }}
+                        initialValues={{ remember: true }}
+                        // onFinish={onFinish}
+                        // onFinishFailed={onFinishFailed}
+                        autoComplete="off"
+                    >
+                        <Form.Item<FieldType>
+                            label="Name"
+                            name="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input the name!",
+                                },
+                            ]}
+                        >
+                            <Input ref={achievementNameRef} />
+                        </Form.Item>
+
+                        <Form.Item<FieldType>
+                            label="Description"
+                            name="description"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input the description!",
+                                },
+                            ]}
+                        >
+                            <Input ref={achievementDescriptionRef} />
+                        </Form.Item>
+
+                        <Form.Item<FieldType>
+                            label="Experience"
+                            name="experience"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input experience!",
+                                },
+                            ]}
+                        >
+                            <Input type="number" />
+                        </Form.Item>
+
+                        {/* <Form.Item wrapperCol={{ offset: 8, span: 16 }}> */}
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            onClick={handleCreateAchievement}
+                        >
+                            Submit
+                        </Button>
+                        {/* </Form.Item> */}
+                    </Form>
 
                     {loading && <p>Loading...</p>}
                     {achievements.length > 0 && (
@@ -135,7 +200,12 @@ export default function Achievements() {
                                 <Card
                                     title={item.name}
                                     extra={
-                                        <p style={{ color: "gray", fontSize: "0.8rem" }}>
+                                        <p
+                                            style={{
+                                                color: "gray",
+                                                fontSize: "0.8rem",
+                                            }}
+                                        >
                                             {item._id}
                                         </p>
                                     }
