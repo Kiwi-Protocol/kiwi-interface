@@ -214,7 +214,7 @@ export default function Achievements() {
                         <Tag style={{marginTop: "10px"}}>
                             <pre>
                                 {`{
- apikey: "YOUR_API_KEY"
+    apikey: "YOUR_API_KEY"
 }`}
                             </pre>
                         </Tag>
