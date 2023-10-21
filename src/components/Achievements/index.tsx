@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./index.module.css";
-import { Button, Modal } from "antd";
+import { Button, Card, Modal } from "antd";
 import { useWalletStore } from "@/states/walletState.state";
 import { createUser, getUser } from "@/services/users.service";
 import { message } from "antd";
 import { createAchievement } from "@/services/achievements.service";
+import useAchievements from "@/hooks/useAchivements";
 
 export default function Achievements() {
     const [userExists, setUserExists] = useState<boolean>(false);
@@ -21,6 +22,8 @@ export default function Achievements() {
     const [creatorId, setCreatorId] = useState<string>("");
 
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
+
+    const { achievements, loading } = useAchievements();
 
     const handleCheckIfUserExists = async () => {
         const response = await getUser(walletAddress);
@@ -91,32 +94,52 @@ export default function Achievements() {
     return (
         <div className={styles.achievementsContainer}>
             {userExists ? (
-                <div className={styles.addForm}>
-                    <h3>Enter details of the achievements</h3>
-                    <input
-                        type="text"
-                        placeholder="Name"
-                        className={styles.inputBox}
-                        ref={achievementNameRef}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Description"
-                        className={styles.inputBox}
-                        ref={achievementDescriptionRef}
-                    />
-                    <input
-                        type="number"
-                        placeholder="XPs"
-                        className={styles.inputBox}
-                        ref={experienceRef}
-                    />
-                    <button
-                        className={styles.submitButton}
-                        onClick={handleCreateAchievement}
-                    >
-                        Submit
-                    </button>
+                <div>
+                    <div className={styles.addForm}>
+                        <h3>Enter details of the achievements</h3>
+                        <input
+                            type="text"
+                            placeholder="Name"
+                            className={styles.inputBox}
+                            ref={achievementNameRef}
+                        />
+                        <input
+                            type="text"
+                            placeholder="Description"
+                            className={styles.inputBox}
+                            ref={achievementDescriptionRef}
+                        />
+                        <input
+                            type="number"
+                            placeholder="XPs"
+                            className={styles.inputBox}
+                            ref={experienceRef}
+                        />
+                        <button
+                            className={styles.submitButton}
+                            onClick={handleCreateAchievement}
+                        >
+                            Submit
+                        </button>
+                    </div>
+
+                    {loading && <p>Loading...</p>}
+                    {achievements.length > 0 && (
+                        <div style={{ marginTop: "10px" }}>
+                            <h1 style={{ margin: "30px 0 20px" }}>
+                                Achievements Created
+                            </h1>
+                            {achievements.map((item: any) => (
+                                <Card
+                                    title={item.name}
+                                    extra={<p>{item.experience} XP</p>}
+                                    style={{margin: "10px 0"}}
+                                >
+                                    {item.description}
+                                </Card>
+                            ))}
+                        </div>
+                    )}
                 </div>
             ) : (
                 <div className={styles.addForm}>
