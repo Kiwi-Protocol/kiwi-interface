@@ -202,12 +202,12 @@ export default function Achievements() {
 
                     <Card style={{ marginTop: "20px" }}>
                         <h2 style={{ marginBottom: "10px" }}>Invoke</h2>
-                        <Tag color="blue">POST</Tag>
+                        <Tag color="geekblue">PATCH</Tag>
                         <Tag>{API_URL}/gaming</Tag>
                         <br />
                         <br />
                         <p>Headers</p>
-                        <Tag color="geekblue" style={{ marginTop: "6px" }}>
+                        <Tag color="gold" style={{ marginTop: "6px" }}>
                             Authorization
                         </Tag>
                         <br />
