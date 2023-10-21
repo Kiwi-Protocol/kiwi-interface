@@ -30,12 +30,12 @@ export function Sidebar() {
                         onClick: () => setNavState("mints"),
                         className: styles.menuItem,
                     },
-                    {
-                        key: "3",
-                        label: "Messages",
-                        onClick: () => setNavState("messages"),
-                        className: styles.menuItem,
-                    },
+                    // {
+                    //     key: "3",
+                    //     label: "Messages",
+                    //     onClick: () => setNavState("messages"),
+                    //     className: styles.menuItem,
+                    // },
                     {
                         key: "4",
                         label: "Profile",
