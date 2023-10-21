@@ -212,7 +212,7 @@ export default function Achievements() {
                             Authorization
                         </Tag>
                         <br />
-                        <Tag style={{ marginTop: "10px" }}>
+                        <Tag style={{ marginTop: "10px" }}> 
                             <pre>
                                 {`{
     apikey: "YOUR_API_KEY"
