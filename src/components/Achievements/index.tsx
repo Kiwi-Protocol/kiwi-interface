@@ -211,12 +211,18 @@ export default function Achievements() {
                                     }
                                     style={{ margin: "10px 0" }}
                                 >
-                                    <Meta
+                                    {/* <Meta
                                         title={item.description}
                                         description={
                                             <p>{item.experience} XP</p>
                                         }
-                                    />
+                                    /> */}
+                                    <p style={{ fontWeight: "bold" }}>
+                                        {item.description}
+                                    </p>
+                                    <p style={{ color: "gray" }}>
+                                        {item.experience} XP
+                                    </p>
                                 </Card>
                             ))}
                         </div>
