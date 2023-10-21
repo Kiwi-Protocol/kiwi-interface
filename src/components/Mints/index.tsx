@@ -48,7 +48,7 @@ export default function Mints() {
                             <h3>
                                 {item.symbol} #{item.token_id}
                             </h3>
-                            <p>{item.metadata[0].name}</p>
+                            <p>{item.metadata[0].name}.kiwi</p>
                         </div>
                     </Card>
                 ))}
