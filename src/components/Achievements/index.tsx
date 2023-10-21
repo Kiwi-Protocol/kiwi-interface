@@ -338,7 +338,14 @@ export default function Achievements() {
                 }}
             >
                 <h3>Here's your API Key</h3>
-                <p>{apiKey}</p>
+                <p
+                    style={{
+                        marginBottom: "10px",
+                        marginTop: "10px",
+                    }}
+                >
+                    {apiKey}
+                </p>
                 <p>
                     This API key is only displayed once. Please copy this and
                     save it somewhere safe.
@@ -346,14 +353,14 @@ export default function Achievements() {
                         You will not be able to view this again.
                     </span>
                 </p>
-                <Button
+                {/* <Button
                     onClick={() => {
                         setIsModalVisible(false);
                         handleCheckIfUserExists();
                     }}
                 >
                     Close
-                </Button>
+                </Button> */}
             </Modal>
         </div>
     );
