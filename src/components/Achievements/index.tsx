@@ -22,13 +22,14 @@ type FieldType = {
     name?: string;
     description?: string;
     experience?: string;
+    email?: string;
 };
 
 export default function Achievements() {
     const [userExists, setUserExists] = useState<boolean>(false);
 
-    const nameRef = useRef<HTMLInputElement>(null);
-    const emailRef = useRef<HTMLInputElement>(null);
+    const nameRef = useRef<InputRef>(null);
+    const emailRef = useRef<InputRef>(null);
     const experienceRef = useRef<InputRef>(null);
     const achievementNameRef = useRef<InputRef>(null);
     const achievementDescriptionRef = useRef<InputRef>(null);
@@ -64,8 +65,8 @@ export default function Achievements() {
 
     const handleCreateUser = async () => {
         const paramsObj = {
-            name: nameRef.current?.value,
-            email: emailRef.current?.value,
+            name: nameRef.current?.input?.value,
+            email: emailRef.current?.input?.value,
             wallet_address: walletAddress,
         };
 
@@ -78,8 +79,8 @@ export default function Achievements() {
             setIsModalVisible(true);
             message.success("User created");
             //clear all refs
-            nameRef.current!.value = "";
-            emailRef.current!.value = "";
+            nameRef.current!.input!.value = "";
+            emailRef.current!.input!.value = "";
         } else {
             console.log("user not created");
             message.error("Something went wrong");
@@ -211,7 +212,7 @@ export default function Achievements() {
                             Authorization
                         </Tag>
                         <br />
-                        <Tag style={{marginTop: "10px"}}>
+                        <Tag style={{ marginTop: "10px" }}>
                             <pre>
                                 {`{
     apikey: "YOUR_API_KEY"
@@ -271,27 +272,58 @@ export default function Achievements() {
                 </div>
             ) : (
                 <div className={styles.addForm}>
-                    <h3>
+                    <h3
+                        style={{
+                            marginBottom: "20px",
+                        }}
+                    >
                         Sign up to generate an API key to add your achievements
                     </h3>
-                    <input
-                        type="text"
-                        placeholder="Name"
-                        className={styles.inputBox}
-                        ref={nameRef}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Email"
-                        className={styles.inputBox}
-                        ref={emailRef}
-                    />
-                    <button
-                        className={styles.submitButton}
-                        onClick={handleCreateUser}
+                    <Form
+                        name="basic"
+                        // labelCol={{ span: 3 }}
+                        // wrapperCol={{ span: 16 }}
+                        initialValues={{ remember: true }}
+                        // onFinish={onFinish}
+                        // onFinishFailed={onFinishFailed}
+                        autoComplete="off"
                     >
-                        Generate
-                    </button>
+                        <Form.Item<FieldType>
+                            label="Name"
+                            name="name"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input the name!",
+                                },
+                            ]}
+                        >
+                            <Input ref={nameRef} />
+                        </Form.Item>
+
+                        <Form.Item<FieldType>
+                            label="Email"
+                            name="email"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input the email!",
+                                },
+                            ]}
+                        >
+                            <Input ref={emailRef} />
+                        </Form.Item>
+
+                        {/* <Form.Item wrapperCol={{ offset: 8, span: 16 }}> */}
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            onClick={handleCreateAchievement}
+                        >
+                            Submit
+                        </Button>
+                        {/* </Form.Item> */}
+                    </Form>
                 </div>
             )}
             <Modal
