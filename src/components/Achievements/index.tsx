@@ -1,12 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./index.module.css";
-import { Button, Card, Checkbox, Form, Input, InputRef, Modal } from "antd";
+import {
+    Button,
+    Card,
+    Checkbox,
+    Form,
+    Input,
+    InputRef,
+    Modal,
+    Tag,
+} from "antd";
 import { useWalletStore } from "@/states/walletState.state";
 import { createUser, getUser } from "@/services/users.service";
 import { message } from "antd";
 import { createAchievement } from "@/services/achievements.service";
 import useUserAchivements from "@/hooks/useUserAchivements";
 import Meta from "antd/es/card/Meta";
+import { API_URL } from "@/constants";
 
 type FieldType = {
     name?: string;
@@ -190,12 +200,43 @@ export default function Achievements() {
                         {/* </Form.Item> */}
                     </Form>
 
+                    <Card style={{ marginTop: "20px" }}>
+                        <h2 style={{ marginBottom: "10px" }}>Invoke</h2>
+                        <Tag color="blue">POST</Tag>
+                        <Tag>{API_URL}/gaming</Tag>
+                        <br />
+                        <br />
+                        <p>Headers</p>
+                        <Tag color="geekblue" style={{ marginTop: "6px" }}>
+                            Authorization
+                        </Tag>
+                        <br />
+                        <Tag style={{marginTop: "10px"}}>
+                            <pre>
+                                {`{
+ apikey: "YOUR_API_KEY"
+}`}
+                            </pre>
+                        </Tag>
+                        <br />
+                        <br />
+                        <p>Example Body</p>
+                        <Tag>
+                            <pre>
+                                {`{
+    "achievment_id":"6532a45c88148073ec131142",
+    "avatar_id":"653292f521a0fa16a95bc663"
+}`}
+                            </pre>
+                        </Tag>
+                    </Card>
+
                     {loading && <p>Loading...</p>}
                     {achievements.length > 0 && (
                         <div style={{ marginTop: "10px" }}>
-                            <h1 style={{ margin: "30px 0 20px" }}>
+                            <h2 style={{ margin: "30px 0 20px" }}>
                                 Achievements Created
-                            </h1>
+                            </h2>
                             {achievements.map((item: any) => (
                                 <Card
                                     title={item.name}
