@@ -140,19 +140,25 @@ export default function Profile() {
                     </Card>
                     <div className={styles.achievementsContainer}>
                         {selectedNFT &&
+                        selectedNFT.metadata[0].achievments.length > 0 ? (
                             selectedNFT.metadata[0].achievments.map(
                                 (item: any) => (
                                     <Card
                                         title={item.name}
                                         extra={<p>{item.experience} XP</p>}
                                         style={{
-                                            marginBottom: "10px"
+                                            marginBottom: "10px",
                                         }}
                                     >
                                         {item.description}
                                     </Card>
                                 )
-                            )}
+                            )
+                        ) : (
+                            <p>
+                                No achievements earned yet, go play some games!
+                            </p>
+                        )}
                     </div>
                 </div>
             )}
