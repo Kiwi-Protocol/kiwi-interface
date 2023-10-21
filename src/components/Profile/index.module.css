@@ -6,3 +6,12 @@
     /* height: 82vh; */
     min-width: 80vw;
 }
+
+.profileFlex {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    /* height: 82vh; */
+    min-width: 80vw;
+}
