@@ -5,7 +5,7 @@ import { useWalletStore } from "@/states/walletState.state";
 import { createUser, getUser } from "@/services/users.service";
 import { message } from "antd";
 import { createAchievement } from "@/services/achievements.service";
-import useAchievements from "@/hooks/useAchivements";
+import useUserAchivements from "@/hooks/useUserAchivements";
 import Meta from "antd/es/card/Meta";
 
 export default function Achievements() {
@@ -24,7 +24,7 @@ export default function Achievements() {
 
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
 
-    const { achievements, loading, fetchAchievements } = useAchievements();
+    const { achievements, loading, fetchAchievements } = useUserAchivements();
 
     const handleCheckIfUserExists = async () => {
         const response = await getUser(walletAddress);
