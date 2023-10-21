@@ -83,6 +83,7 @@ export default function Profile() {
                                     <Space
                                         style={{
                                             cursor: "pointer",
+                                            color: "#000000",
                                         }}
                                     >
                                         {nfts.length > 0 && (

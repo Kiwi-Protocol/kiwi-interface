@@ -40,8 +40,8 @@ export default function App({ Component, pageProps }: AppProps) {
                     },
                     components: {
                         Button: {
-                            colorPrimary: "#2B2D42",
-                            colorBgContainer: "#2B2D42",
+                            colorPrimary: "#f14b96",
+                            colorBgContainer: "#f14b96",
                         },
                     },
                 }}
