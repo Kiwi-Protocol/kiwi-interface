@@ -23,7 +23,7 @@ function useAchievements() {
                 "/achievments?creator.wallet_address=" + address
             );
 
-            setAchievements(data.data);
+            setAchievements(data.data.reverse());
 
             setLoading(false);
         } catch (e) {

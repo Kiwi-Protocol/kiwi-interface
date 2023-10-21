@@ -6,6 +6,7 @@ import { createUser, getUser } from "@/services/users.service";
 import { message } from "antd";
 import { createAchievement } from "@/services/achievements.service";
 import useAchievements from "@/hooks/useAchivements";
+import Meta from "antd/es/card/Meta";
 
 export default function Achievements() {
     const [userExists, setUserExists] = useState<boolean>(false);
@@ -23,7 +24,7 @@ export default function Achievements() {
 
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
 
-    const { achievements, loading } = useAchievements();
+    const { achievements, loading, fetchAchievements } = useAchievements();
 
     const handleCheckIfUserExists = async () => {
         const response = await getUser(walletAddress);
@@ -84,6 +85,7 @@ export default function Achievements() {
 
         if (response.status === 200) {
             console.log(response.data.data, "achievement created");
+            fetchAchievements();
             message.success("Achievement created");
         } else {
             console.log("achievement not created");
@@ -132,10 +134,19 @@ export default function Achievements() {
                             {achievements.map((item: any) => (
                                 <Card
                                     title={item.name}
-                                    extra={<p>{item.experience} XP</p>}
-                                    style={{margin: "10px 0"}}
+                                    extra={
+                                        <p style={{ color: "gray", fontSize: "0.8rem" }}>
+                                            {item._id}
+                                        </p>
+                                    }
+                                    style={{ margin: "10px 0" }}
                                 >
-                                    {item.description}
+                                    <Meta
+                                        title={item.description}
+                                        description={
+                                            <p>{item.experience} XP</p>
+                                        }
+                                    />
                                 </Card>
                             ))}
                         </div>
