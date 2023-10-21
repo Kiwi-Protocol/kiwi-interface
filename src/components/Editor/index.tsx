@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Tabs } from "antd";
+import { Button, Card, Flex, Form, Input, InputRef, Tabs } from "antd";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./index.module.css";
 import { parse } from "path";
@@ -17,9 +17,16 @@ type Props = {
     isUpdate?: boolean;
 };
 
+type FieldType = {
+    name?: string;
+    description?: string;
+    experience?: string;
+    email?: string;
+};
+
 function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
     const [selected, setSelected] = useState<typeof assetPack | {}>({});
-    const nameRef = useRef<HTMLInputElement>(null);
+    const nameRef = useRef<InputRef>(null);
     const walletAddress = useWalletStore((state: any) => state.walletAddress);
     const [loading, setLoading] = useState(false);
 
@@ -116,7 +123,7 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
             const avatar_id = tokenData.data[0]._id;
 
             const paramsObj = {
-                name: nameRef.current?.value,
+                name: nameRef.current?.input?.value,
                 wallet_address: walletAddress,
                 characteristics: Object.keys(selected).map((type) => {
                     return {
@@ -139,7 +146,7 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
     const handleCreateAvatar = async () => {
         setLoading(true);
         const paramsObj = {
-            name: nameRef.current?.value,
+            name: nameRef.current?.input?.value,
             wallet_address: walletAddress,
             characteristics: Object.keys(selected).map((type) => {
                 return {
@@ -180,13 +187,29 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
             </Flex>
 
             {!isUpdate && (
-                <input
-                    type="text"
-                    className={styles.nameInput}
-                    placeholder="Name for the Avatar"
-                    required
-                    ref={nameRef}
-                />
+                <Form
+                    name="basic"
+                    // labelCol={{ span: 3 }}
+                    // wrapperCol={{ span: 16 }}
+                    initialValues={{ remember: true }}
+                    // onFinish={onFinish}
+                    // onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                    <Form.Item<FieldType>
+                        label="Name of the Avatar"
+                        labelAlign="left"
+                        name="name"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input the name!",
+                            },
+                        ]}
+                    >
+                        <Input ref={nameRef} />
+                    </Form.Item>
+                </Form>
             )}
 
             <Tabs
@@ -200,7 +223,7 @@ function Editor({ assetPack, buttonText, onSave, isUpdate }: Props) {
                 tabBarExtraContent={{
                     right: (
                         <Button
-                            loading={true}
+                            loading={loading}
                             type="primary"
                             onClick={() =>
                                 isUpdate
