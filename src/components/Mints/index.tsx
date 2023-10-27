@@ -33,41 +33,44 @@ export default function Mints() {
                 </div>
             )}
             <div className={styles.mintFlexbox}>
-                {nfts.map((item: any, i) => (
-                    <Card
-                        className={styles.mintContainer}
-                        key={i}
-                        actions={[
-                            <Button
-                                className={styles.updateButton}
-                                onClick={() => {
-                                    setNavState("updateAvatar");
-                                    router.replace({
-                                        query: {
-                                            id: item.token_id,
-                                        },
-                                    });
-                                }}
+                {nfts.map(
+                    (item: any, i) =>
+                        item.metadata[0] && (
+                            <Card
+                                className={styles.mintContainer}
+                                key={i}
+                                actions={[
+                                    <Button
+                                        className={styles.updateButton}
+                                        onClick={() => {
+                                            setNavState("updateAvatar");
+                                            router.replace({
+                                                query: {
+                                                    id: item.token_id,
+                                                },
+                                            });
+                                        }}
+                                    >
+                                        Update
+                                    </Button>,
+                                ]}
                             >
-                                Update
-                            </Button>,
-                        ]}
-                    >
-                        <div className={styles.mintImage}>
-                            <img
-                                src={item.metadata[0].image}
-                                alt="mint"
-                                width={"175px"}
-                            />
-                        </div>
-                        <div className={styles.mintDetails}>
-                            <h3>
-                                {item.symbol} #{item.token_id}
-                            </h3>
-                            <p>{item.metadata[0].name}.kiwi</p>
-                        </div>
-                    </Card>
-                ))}
+                                <div className={styles.mintImage}>
+                                    <img
+                                        src={item.metadata[0].image ?? ""}
+                                        alt="mint"
+                                        width={"175px"}
+                                    />
+                                </div>
+                                <div className={styles.mintDetails}>
+                                    <h3>
+                                        {item.symbol} #{item.token_id}
+                                    </h3>
+                                    <p>{item.metadata[0].name}.kiwi</p>
+                                </div>
+                            </Card>
+                        )
+                )}
             </div>
         </div>
     );
